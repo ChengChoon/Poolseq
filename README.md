@@ -1,39 +1,15 @@
 # Poolseq
 
-#concatenate several reads fastq files together: e.g. the pair-end reads below:
-
-cat A.R1 B.R1 > R1.fq.gz
-
-cat A.R2 B.R2 > R2.fq.gz
-
+	Same procedures as GWAS for the raw data processing steps:
+#concatenate several reads fastq files together
 #trim ends or adapters using trimmomatic-0.39.jar
-
-java -jar trimmomatic-0.39.jar PE -threads 16 -trimlog logfile R1.fq.gz R2.fq.gz R1_paired.fq.gz R1_unpaired.fq.gz R2_paired.fq.gz R2_unpaired.fq.gz ILLUMINACLIP:adapters/TruSeq3-PE.fa:2:30:10 SLIDINGWINDOW:4:15 LEADING:3 TRAILING:3 MINLEN:36
-
 #check the output of trimmed files with fastQC:
-
-fastqc -o {directory for outputs} -t 6 --noextract input.fq.gz
-
 #mapping using bwa mem
-
-bwa mem -t 16 -M ref.fa R1_paired.fq.gz R2_paired.fq.gz > R.sam
-
 #convert file format for size reduction sam to bam
-
-samtools view -b -S -@ 16 R.sam > R.bam
-
 #certain program required sorted bam file for the following steps
-
-samtools sort R.bam -o R.sorted.bam -@ 16
-
 #create index for Picard to run
-
-samtools index R.sorted.bam -@ 16
-
+#run Bedtools to check the overal genomic coverage of the reads
 #run Picard to mark & remove duplicated reads
-
-java -Xmx32G -XX:ParallelGCThreads=16 -jar picard.jar MarkDuplicates I=R.sorted.bam O=R.sorted.MD.bam M=R.sorted.MD.bam.metrics.txt OPTICAL_DUPLICATE_PIXEL_DISTANCE=2500 CREATE_INDEX=true TMP_DIR={create your own directory for temporary files} REMOVE_DUPLICATES=true
-
 #filter reads with quality lower than 20 & flag 1804 (check manual of samtools)
 
 samtools view -@ 16 -q 20 -F 1804 -b R.sorted.MD.bam > R.sorted.MD.Q20.bam 
