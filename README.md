@@ -1,6 +1,6 @@
 # Poolseq
 
-###Same procedures as GWAS for the raw data processing steps:
+	Same procedures as GWAS for the raw data processing steps:
 
 #concatenate several reads fastq files together
 
