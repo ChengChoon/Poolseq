@@ -1,15 +1,25 @@
 # Poolseq
 
-	Same procedures as GWAS for the raw data processing steps:
+###Same procedures as GWAS for the raw data processing steps:
+
 #concatenate several reads fastq files together
+
 #trim ends or adapters using trimmomatic-0.39.jar
+
 #check the output of trimmed files with fastQC:
+
 #mapping using bwa mem
+
 #convert file format for size reduction sam to bam
+
 #certain program required sorted bam file for the following steps
+
 #create index for Picard to run
+
 #run Bedtools to check the overal genomic coverage of the reads
+
 #run Picard to mark & remove duplicated reads
+
 #filter reads with quality lower than 20 & flag 1804 (check manual of samtools)
 
 samtools view -@ 16 -q 20 -F 1804 -b R.sorted.MD.bam > R.sorted.MD.Q20.bam 
