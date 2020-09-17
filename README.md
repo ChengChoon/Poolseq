@@ -46,9 +46,10 @@ perl fst-sliding.pl --input p1_p2.sync --output p1_p2_w500.fst --min-count 6 --m
 
 ## plot the figure using Rscipt = plotscript.R
 
-*** reference from goat genome, https://doi.org/10.1371/journal.pgen.1008536
+## reference from goat genome, https://doi.org/10.1371/journal.pgen.1008536
 
 (i) Genome Analysis Toolkit UnifiedGenotyper version 3.7 with setting: -glm SNP, -stand_call_conf 20, -out_mode EMIT_VARIANTS_ONLY and ploidy 16/20/24, filtered using the generic hard-filtering recommendations available from https://gatkforums.broadinstitute.org/gatk/discussion/6925/understanding-and-adapting-thegeneric-hard-filtering-recommendations
+
 (ii) SAMtools mpileup with the settings -q 15, -Q 20, -C 50 and -B, mpileup files were streamed to the PoPoolation2 used the scripts mpileup2sync.jar with settings --fastqtype sanger --min-qual 20, snp-frequency-diff.pl with the settings --min-coverage 15 --max-coverage 50 --min-count 3
 
 
