@@ -36,17 +36,17 @@ java -Xmx32G -jar mpileup2sync.jar --input p1.p2.mpileup --output p1.p2.java.syn
 
 perl snp-frequency-diff.pl --input p1_p2.java.sync --output-prefix p1_p2 --min-count 6 --min-coverage 50 --max-coverage 200
 
-With the generated output file _rc: this file contains the major and minor alleles for every SNP in a concise format
+#with the generated output file _rc: this file contains the major and minor alleles for every SNP in a concise format
 
-We can calculate hetrozygosity for each pool seperatedly, or a pooled heterozygosity, Hp using the formula
+#we can calculate hetrozygosity for each pool seperatedly, or a pooled heterozygosity, Hp using the formula
 
-Hp = 2*Sum(nMAJ)*Sum(nMIN)/[Sum(nMAJ) + Sum(nMIN)]^2, where Sum(nMAJ) and Sum(nMIN) are breedpool-specific sums of nMAJ and, respectively, nMIN counted at all SNPs in the window (if using sliding windows approach.
+# Hp = 2*Sum(nMAJ)*Sum(nMIN)/[Sum(nMAJ) + Sum(nMIN)]^2, where Sum(nMAJ) and Sum(nMIN) are breedpool-specific sums of nMAJ and, respectively, nMIN counted at all SNPs in the window (if using sliding windows approach.
 
-Please refer to python script, 3_pooled_het.py to do this. Where it based on python3 version. ref.bed (scaffolds-length) is required.
+#please refer to python script, 3_pooled_het.py to do this. Where it based on python3 version. ref.bed (scaffolds-length) is required.
 
-To prevent windows containing very few SNPs from adding spurious fixation signals, we ommited windows where only 1-10 SNPs had been detected.
+#to prevent windows containing very few SNPs from adding spurious fixation signals, we ommited windows where only 1-10 SNPs had been detected.
 
-If needed, we can Z-transform the Hp values to Zhp= (Hp-mean.Hp)/std_dev.Hp
+#if needed, we can Z-transform the Hp values to Zhp= (Hp-mean.Hp)/std_dev.Hp
  
 ## Calculate Fst for every SNP using fst-sliding.pl (also the parameter meaning) from popoolation2 
 
