@@ -40,7 +40,7 @@ perl snp-frequency-diff.pl --input p1_p2.java.sync --output-prefix p1_p2 --min-c
 
 #we can calculate hetrozygosity for each pool seperatedly, or a pooled heterozygosity, Hp using the formula
 
-# Hp = 2*Sum(nMAJ)*Sum(nMIN)/[Sum(nMAJ) + Sum(nMIN)]^2, where Sum(nMAJ) and Sum(nMIN) are breedpool-specific sums of nMAJ and, respectively, nMIN counted at all SNPs in the window (if using sliding windows approach.
+#Hp = 2*Sum(nMAJ)*Sum(nMIN)/[Sum(nMAJ) + Sum(nMIN)]^2, where Sum(nMAJ) and Sum(nMIN) are breedpool-specific sums of nMAJ and, respectively, nMIN counted at all SNPs in the window (if using sliding windows approach.
 
 #please refer to python script, 3_pooled_het.py to do this. Where it based on python3 version. ref.bed (scaffolds-length) is required.
 
