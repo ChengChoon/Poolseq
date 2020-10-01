@@ -61,24 +61,24 @@ perl fst-sliding.pl --input p1_p2.sync --output p1_p2_w500.fst --min-count 6 --m
 
 ## Calculate Tajima's Pi using a sliding window approach from popoolation
 
-Run the analysis for each seperate-pool
+### Run the analysis for each seperate-pool
 
 samtools mpileup -B -Q 0 -f ref.fa pool1.bam  > pool1.mpileup
 
-# create gtf with indel 
+### create gtf with indel 
 perl basic-pipeline/identify-genomic-indel-regions.pl --indel-window 5 --min-count 2 --input pool1.mpileup --output pool1_indels.gtf
 
-# filter indels 
+### filter indels 
 perl basic-pipeline/filter-pileup-by-gtf.pl --input pool1.mpileup --gtf pool1_indels.gtf --output pool1_idf.mpileup
 
-# subsample to an uniform coverage
+### subsample to an uniform coverage
 perl basic-pipeline/subsample-pileup.pl --min-qual 20 --method withoutreplace --max-coverage 400 --fastq-type sanger --target-coverage 50 --input pool1_idf.mpileup --output pool1_idf_ss50.mpileup
 
-# Calculates Tajima's Pi or Wattersons Theta or Tajima's D from popoolation
+### Calculates Tajima's Pi or Wattersons Theta or Tajima's D from popoolation
   
 perl Variance-sliding.pl --fastq-type sanger --measure pi --input pool1_idf_ss50.mpileup --min-count 6 --min-coverage 50 --max-coverage 400 --pool-size 29 --window-size 10000 --step-size 5000 --output pool1_idf_ss50.pi
 
-# Convert format for visualization in IGV
+### Convert format for visualization in IGV
 perl VarSliding2Wiggle.pl --input pool1_idf_ss50.pi --trackname "pool1_pi" --window-size 10000 --output pool1_idf_ss50_w10k.wig 
 
 ## reference from goat genome, https://doi.org/10.1371/journal.pgen.1008536
