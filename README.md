@@ -61,7 +61,7 @@ perl fst-sliding.pl --input p1_p2.sync --output p1_p2_w500.fst --min-count 6 --m
 
 ## Calculate Tajima's Pi using a sliding window approach from popoolation
 
-### Run the analysis for each seperate-pool
+#run the analysis for each seperate-pool
 
 samtools mpileup -B -Q 0 -f ref.fa pool1.bam  > pool1.mpileup
 
