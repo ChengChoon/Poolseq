@@ -34,7 +34,7 @@ java -Xmx32G -jar mpileup2sync.jar --input p1.p2.mpileup --output p1.p2.java.syn
 
 ## Calculate allele frequency differences using snp-frequency-diff.pl (also the parameter meaning) from popoolation2 
 
-perl snp-frequency-diff.pl --input p1_p2.java.sync --output-prefix p1_p2 --min-count 6 --min-coverage 50 --max-coverage 200
+perl snp-frequency-diff.pl --input p1_p2.java.sync --output-prefix p1_p2 --min-count 6 --min-coverage 50 --max-coverage 400
 
 #with the generated output file _rc: this file contains the major and minor alleles for every SNP in a concise format
 
