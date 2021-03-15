@@ -50,11 +50,11 @@ perl snp-frequency-diff.pl --input p1_p2.java.sync --output-prefix p1_p2 --min-c
  
 ## Calculate Fst for every SNP using fst-sliding.pl (also the parameter meaning) from popoolation2 
 
-perl fst-sliding.pl --input p1_p2.sync --output p1_p2.fst --suppress-noninformative --min-count 6 --min-coverage 50 --max-coverage 200 --window-size 1 --step-size 1 --pool-size X:X
+perl fst-sliding.pl --input p1_p2.sync --output p1_p2.fst --suppress-noninformative --min-count 6 --min-coverage 50 --max-coverage 400 --window-size 1 --step-size 1 --pool-size X:X
 
 ## Calculate Fst values using a sliding window approach from popoolation2 
 
-perl fst-sliding.pl --input p1_p2.sync --output p1_p2_w500.fst --min-count 6 --min-coverage 50 --max-coverage 200 --window-size 500 --step-size 250 --pool-size X:X
+perl fst-sliding.pl --input p1_p2.sync --output p1_p2_w500.fst --suppress-noninformative --min-count 6 --min-coverage 50 --max-coverage 400 --window-size 500 --step-size 250 --pool-size X:X
 
 ## plot the figure using Rscipt = plotscript.R or to rearrange the scaffolds into chromosome or LG groups. Please use forward.sh, reverse.sh, script.sh.
 
