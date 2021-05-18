@@ -44,9 +44,9 @@ Calculate hetrozygosity for each pool seperatedly, or a pooled heterozygosity, H
 
 Please refer to python script, 3_pooled_het.py to do this. Where it based on python3 version. ref.bed (scaffolds-length) is required.
 
-#if needed, we can Z-transform the Hp values to Zhp= (Hp-mean.Hp)/std_dev.Hp
+	if needed, we can Z-transform the Hp values to Zhp= (Hp-mean.Hp)/std_dev.Hp
 
-To prevent windows containing very few SNPs from adding spurious fixation signals, we ommited windows where only 1-10 SNPs had been detected.
+#To prevent windows containing very few SNPs from adding spurious fixation signals, we ommited windows where only 1-10 SNPs had been detected.
 
 Calculate Fst for every SNP using fst-sliding.pl (also the parameter meaning) from popoolation2 
 
