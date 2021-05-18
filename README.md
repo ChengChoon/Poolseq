@@ -40,12 +40,14 @@ Calculate allele frequency differences using snp-frequency-diff.pl (also the par
 
 Calculate hetrozygosity for each pool seperatedly, or a pooled heterozygosity, Hp using the formula
 
-	Hp = 2*Sum(nMAJ)*Sum(nMIN)/[Sum(nMAJ) + Sum(nMIN)]^2, where Sum(nMAJ) and Sum(nMIN) are breedpool-specific sums of nMAJ and, respectively, nMIN counted at all SNPs in the window (if using sliding windows approach. Please refer to python script, 3_pooled_het.py to do this. Where it based on python3 version. ref.bed (scaffolds-length) is required.
+	Hp = 2*Sum(nMAJ)*Sum(nMIN)/[Sum(nMAJ) + Sum(nMIN)]^2, where Sum(nMAJ) and Sum(nMIN) are breedpool-specific sums of nMAJ and, respectively, nMIN counted at all SNPs in the window (if using sliding windows approach. 
+
+Please refer to python script, 3_pooled_het.py to do this. Where it based on python3 version. ref.bed (scaffolds-length) is required.
+
+#if needed, we can Z-transform the Hp values to Zhp= (Hp-mean.Hp)/std_dev.Hp
 
 To prevent windows containing very few SNPs from adding spurious fixation signals, we ommited windows where only 1-10 SNPs had been detected.
 
-#if needed, we can Z-transform the Hp values to Zhp= (Hp-mean.Hp)/std_dev.Hp
- 
 Calculate Fst for every SNP using fst-sliding.pl (also the parameter meaning) from popoolation2 
 
 	perl fst-sliding.pl --input p1_p2.sync --output p1_p2.fst --suppress-noninformative --min-count 6 --min-coverage 50 --max-coverage 400 --window-size 1 --step-size 1 --pool-size X:X
@@ -64,12 +66,15 @@ Run the analysis for each seperate-pool
 	samtools mpileup -B -Q 0 -f ref.fa pool1.bam  > pool1.mpileup
 
 Create gtf with indel 
+
 	perl basic-pipeline/identify-genomic-indel-regions.pl --indel-window 5 --min-count 2 --input pool1.mpileup --output pool1_indels.gtf
 
-Filter INDELs 
+Filter INDELs
+ 
 	perl basic-pipeline/filter-pileup-by-gtf.pl --input pool1.mpileup --gtf pool1_indels.gtf --output pool1_idf.mpileup
 
 Subsample to an uniform coverage
+
 	perl basic-pipeline/subsample-pileup.pl --min-qual 20 --method withoutreplace --max-coverage 400 --fastq-type sanger --target-coverage 50 --input pool1_idf.mpileup --output pool1_idf_ss50.mpileup
 
 Calculates Tajima's Pi or Wattersons Theta or Tajima's D from popoolation
@@ -81,7 +86,7 @@ Convert format for visualization in IGV
 
 Alternative pipeline from goat genome research, https://doi.org/10.1371/journal.pgen.1008536
 
-	(i) Genome Analysis Toolkit UnifiedGenotyper version 3.7 with setting: -glm SNP, -stand_call_conf 20, -out_mode EMIT_VARIANTS_ONLY and ploidy 16/20/24, filtered using the generic hard-filtering recommendations available from https://gatkforums.broadinstitute.org/gatk/discussion/6925/understanding-and-adapting-thegeneric-hard-filtering-recommendations
+	GATK UnifiedGenotyper v 3.7 with setting: -glm SNP, -stand_call_conf 20, -out_mode EMIT_VARIANTS_ONLY and ploidy 16/20/24, filtered using the generic hard-filtering recommendations available from https://gatkforums.broadinstitute.org/gatk/discussion/6925/understanding-and-adapting-thegeneric-hard-filtering-recommendations
 
-	(ii) SAMtools mpileup with the settings -q 15, -Q 20, -C 50 and -B, mpileup files were streamed to the PoPoolation2 used the scripts mpileup2sync.jar with settings --fastqtype sanger --min-qual 20, snp-frequency-diff.pl with the settings --min-coverage 15 --max-coverage 50 --min-count 3
+	SAMtools mpileup with the settings -q 15, -Q 20, -C 50 and -B, mpileup files were streamed to the PoPoolation2 used the scripts mpileup2sync.jar with settings --fastqtype sanger --min-qual 20, snp-frequency-diff.pl with the settings --min-coverage 15 --max-coverage 50 --min-count 3
 
